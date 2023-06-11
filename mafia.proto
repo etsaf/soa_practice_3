@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+service Mafia {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply) {}
+
+  rpc SendUpdates (UpdateRequest) returns (stream UpdateReply) {}
+
+  rpc EndDay (UpdateRequest) returns (Empty) {}
+
+  rpc KillPlayer (KillRequest) returns (Empty) {}
+
+  rpc CheckPlayer (KillRequest) returns (UpdateReply) {}
+
+  rpc RevealPlayer (UpdateRequest) returns (Empty) {}
+
+  rpc ExecutePlayer (KillRequest) returns (Empty) {}
+
+  rpc SendToChat (ChatRequest) returns (Empty) {}
+}
+
+message Empty {}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the message and session number
+message HelloReply {
+  string message = 1;
+  int32 session = 2;
+}
+
+message UpdateRequest {
+  int32 session = 1;
+  string name = 2;
+}
+
+message UpdateReply {
+  string message = 1;
+}
+
+message KillRequest {
+  int32 session = 1;
+  string sender = 2;
+  int32 victim = 3;
+}
+
+message ChatRequest {
+  int32 session = 1;
+  string sender = 2;
+  string topic = 3;
+  string text = 4;
+}

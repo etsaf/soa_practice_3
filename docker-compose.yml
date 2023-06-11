@@ -1,0 +1,119 @@
+version: "3"
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    hostname: "rabbitmq"
+    container_name: "rabbitmq"
+    ports:
+        - "15672:15672"
+        - "5672:5672"
+
+  server:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Server
+    expose:
+      - '50051'
+    depends_on:
+      - rabbitmq
+
+  client_1:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 1
+    depends_on:
+      - server
+      - rabbitmq
+  
+  client_2:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 2
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+  
+  client_3:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 3
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+  
+  client_4:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 4
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+      - client_3
+  
+  client_5:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 5
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+      - client_3
+      - client_4
+  
+  client_6:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 6
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+      - client_3
+      - client_4
+      - client_5
+  
+  client_7:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 7
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+      - client_3
+      - client_4
+      - client_5
+      - client_6
+  
+  client_8:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_Client
+    command: python -u ./client.py 8
+    depends_on:
+      - server
+      - rabbitmq
+      - client_1
+      - client_2
+      - client_3
+      - client_4
+      - client_5
+      - client_6
+      - client_7
