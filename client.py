@@ -29,7 +29,7 @@ def run(lock):
     players = []
     guessed = False
     #when testing without Docker, use 'localhost:50051' instead of 'server:50051'
-    time.sleep(15) #the server doesn't start listening right away
+    time.sleep(30) #the server doesn't start listening right away
     with grpc.insecure_channel('server:50051') as channel:
         stub = mafia_pb2_grpc.MafiaStub(channel)
         #join the server and get the session number
